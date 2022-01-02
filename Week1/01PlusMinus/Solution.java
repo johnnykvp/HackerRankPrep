@@ -41,32 +41,32 @@ class Result {
     print string ratios
     */
     
-    int pos = 0;
-    int neg = 0;
-    int zer = 0;
-    for (int i = 0; i < arr.size(); i++) {
-        if (arr.get(i) > 0) {
-            pos++;
-        }
-        else if (arr.get(i) < 0) {
-            neg++;
-        }
-        else {
-            zer++;
-        }
-    }
-    double posRatio = (double) pos / arr.size();
-    double negRatio = (double) neg / arr.size();
-    double zerRatio = (double) zer / arr.size();
-    String posResult = Double.toString(posRatio);
-    String negResult = Double.toString(negRatio);
-    String zerResult = Double.toString(zerRatio);
-    posResult = lengthCheck(posResult);
-    negResult = lengthCheck(negResult);
-    zerResult = lengthCheck(zerResult);
-    System.out.println(posResult);
-    System.out.println(negResult);
-    System.out.println(zerResult);
+       int pos = 0;
+       int neg = 0;
+       int zer = 0;
+       for (int i = 0; i < arr.size(); i++) {
+           if (arr.get(i) > 0) {
+               pos++;
+           }
+           else if (arr.get(i) < 0) {
+               neg++;
+           }
+           else {
+               zer++;
+           }
+       }
+       double posRatio = (double) pos / arr.size();
+       double negRatio = (double) neg / arr.size();
+       double zerRatio = (double) zer / arr.size();
+       String posResult = Double.toString(posRatio);
+       String negResult = Double.toString(negRatio);
+       String zerResult = Double.toString(zerRatio);
+       posResult = lengthCheck(posResult);
+       negResult = lengthCheck(negResult);
+       zerResult = lengthCheck(zerResult);
+       System.out.println(posResult);
+       System.out.println(negResult);
+       System.out.println(zerResult);
     }
     
     private static String lengthCheck(String ratio) {
