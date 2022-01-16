@@ -17,54 +17,49 @@ class Result {
 
     public static int flippingMatrix(List<List<Integer>> matrix) {
     // Write your code here
+
+    /* Notes
+    We want the top left quadrant to have the max possible values to sum
+    Can only reverse the rows/columns
+    Think about where the values will be after reversal
     
-    /* Example
-    Think about where the values are placed after reversal
-    112 42  83  119     a    b    b   a
-    56  125 56  49  ->  c    d    d   c
-    15  78  101 43      c    d    d   c
-    62  98  114 108     a    b    b   a
-    Need the greatest of a,b,c,d in the top left corner
-    
-    a: (0,0), (length - 1,0), (0,length - 1), (length - 1,length - 1)
-    b: (0,0 + 1), (0,length - 2), (length - 2,0 + 1), (length - 2,length - 2)
-    c: (0 + 1,0), (0 + 1,length - 1), (length - 2,0), (length - 2,length - 1)
-    d: (0 + 1,0 + 1), (0 + 1,length - 2), (length - 2,0 + 1), (length - 2,length - 2)
+    4x4:
+    a   b   b   a
+    c   d   d   c
+    c   d   d   c
+    a   b   b   a
+    Letters represent the spots they can swap with
     */
-    
+
     /* Approach
-    Find the first quadrant values, & match them up to their counterparts
-    on the opposite side row-wise. Then take the max value between them,
-    & continue to take the max for the opposites column-wise, finally
-    taking the max between all corners, adding it to the sum.
-    
     int stores sum
-    for loop iterates through rows until length / 2
-        nested for loop iterates through columns until length / 2
-            int r1 stores row
-            int r2 stores length - row - 1, the opposite side
-            int c1 stores column
-            int c2 stores length - column - 1, the opposite side
-            find max of max([r1,c1], [r1, c2]), max([r2,c1], [r2, c2])
+    for loop iterates through matrix rows, until length / 2 (first quadrant only)
+        nested for loop iterates through matrix columns, until length / 2
+            int stores opposite side row index, length - current row index - 1
+            int stores opposite side column index, length - current column index - 1
+            // Basically, this next part finds the max for the letter spots
+            // For example, with 'a', it will consider all its possible corner values
+            find max value of max([current row, current col], [current row, opposite col]), 
+                max([opposite row, current col], [opposite row, opposite col])
             increment max to sum
+    return sum
     */
-        
+    
+
         int sum = 0;
         for (int r = 0; r < matrix.size() / 2; r++) {
             for (int c = 0; c < matrix.size() / 2; c++) {
-                int r1 = r;
-                int r2 = matrix.size() - r - 1;
-                int c1 = c;
-                int c2 = matrix.size() - c - 1;
-                sum += Math.max( 
-                    Math.max(matrix.get(r1).get(c1), matrix.get(r1).get(c2)),
-                    Math.max(matrix.get(r2).get(c1), matrix.get(r2).get(c2)) );
+                int oppoRow = matrix.size() - r - 1;
+                int oppoCol = matrix.size() - c - 1;
+                sum += Math.max(
+                    Math.max(matrix.get(r).get(c), matrix.get(r).get(oppoCol)),
+                    Math.max(matrix.get(oppoRow).get(c), matrix.get(oppoRow).get(oppoCol)) );
             }
         }
         return sum;
         
     /* Complexity
-    O(n^2) runtime, iterating through nested for loop based on given matrix size
+    O(n^2) runtime, iterates through nested for loop based on given matrix size
     O(1) space, no additional data structures created
     */
     }
